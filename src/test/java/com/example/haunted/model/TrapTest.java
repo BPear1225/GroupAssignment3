@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class TrapTest {
 
-    // ---------- Constructor: happy path ----------
+    // happy path 
 
     @ParameterizedTest(name = "[{index}] type={0}, dmg={1}, armed={2}, oneTime={3}")
     @CsvSource({
@@ -47,7 +47,7 @@ class TrapTest {
         assertEquals(type, trap.getType());
     }
 
-    // ---------- Constructor: null guards ----------
+    // null guards 
 
     @Test
     @DisplayName("Null name throws NullPointerException")
@@ -63,7 +63,7 @@ class TrapTest {
                 () -> new Trap("X", null, 5, true, true));
     }
 
-    // ---------- disarm() behavior ----------
+    // disarm() behavior 
 
     @Test
     @DisplayName("disarm() flips an armed trap to unarmed")
