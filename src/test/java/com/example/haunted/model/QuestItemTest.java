@@ -40,13 +40,13 @@ class QuestItemTest {
 		assertThrows(NullPointerException.class, () -> new QuestItem(name, description));
 	}
 	
-	private static Stream<Arguments> descriptionCases() {
+	private static Stream<Arguments> successfulCreationCases() {
 		return Stream.of(Arguments.of(new QuestItem("Key1", "Example Item 1"), "Example Item 1"),
-				Arguments.of(new QuestItem("Hallway", "Random Test"), "Random Test"));
+				Arguments.of(new QuestItem("Hallway", "Random Test"), "Random Test"),Arguments.of(new QuestItem("", "No Name"), "No Name"),Arguments.of(new QuestItem("No desc", ""), ""));
 	}
 
 	@ParameterizedTest
-	@MethodSource("descriptionCases")
+	@MethodSource("successfulCreationCases")
 	void testSuccessfullCreation(QuestItem item, String expectedOutput) {
 		assertEquals(item.getDescription(), expectedOutput);
 	}
