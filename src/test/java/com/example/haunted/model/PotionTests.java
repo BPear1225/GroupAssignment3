@@ -12,7 +12,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-class QuestItemTest {
+class PotionTests {
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -31,24 +31,26 @@ class QuestItemTest {
 	}
 
 	private static Stream<Arguments> creationFailCases() {
-		return Stream.of(Arguments.of(null, null), Arguments.of(null, "Description"), Arguments.of("Name", null));
+		return Stream.of(Arguments.of(null, null, 0), Arguments.of(null, "Description", 0),
+				Arguments.of("Name", null, 0));
 	}
 
 	@ParameterizedTest
 	@MethodSource("creationFailCases")
-	public void testImproperCreation(String name, String description) {
-		assertThrows(NullPointerException.class, () -> new QuestItem(name, description));
+	public void testImproperCreation(String name, String description, int defense) {
+		assertThrows(NullPointerException.class, () -> new Potion(name, description, defense));
 	}
-	
+
 	private static Stream<Arguments> successfulCreationCases() {
-		return Stream.of(Arguments.of(new QuestItem("Key1", "Example Item 1"), "Example Item 1"),
-				Arguments.of(new QuestItem("Hallway", "Random Test"), "Random Test"),Arguments.of(new QuestItem("", "No Name"), "No Name"),Arguments.of(new QuestItem("No desc", ""), ""));
+		return Stream.of(Arguments.of(new Potion("Water", "Some refreshing water", 0), 0),
+				Arguments.of(new Potion("Health Potion", "Heals 10 Health", 10), 10),
+				Arguments.of(new Potion("Damage Potion", "Heals -10 Health", -10), -10));
 	}
 
 	@ParameterizedTest
 	@MethodSource("successfulCreationCases")
-	void testSuccessfullCreation(QuestItem item, String expectedOutput) {
-		assertEquals(item.getDescription(), expectedOutput);
+	void testGetHealingAmount(Potion item, int expectedOutput) {
+		assertEquals(item.getHealingAmount(), expectedOutput);
 	}
 
 }
