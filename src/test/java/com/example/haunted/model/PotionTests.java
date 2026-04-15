@@ -52,5 +52,27 @@ class PotionTests {
 	void testGetHealingAmount(Potion item, int expectedOutput) {
 		assertEquals(item.getHealingAmount(), expectedOutput);
 	}
+	
+	private static Stream<Arguments> healParams() {
+		Player p1 = new Player("p1", 100, 0, 0, new Inventory(10));
+		Player p2 = new Player("p2", 100, 0, 0, new Inventory(10));
+		p2.takeDamage(50);
+		Potion pot1 = new Potion("pot1","Potion", -100);
+		Potion pot2 = new Potion("pot2","Potion", 20);
+		Potion pot3 = new Potion("pot3","Potion", 0);
+		Potion pot4 = new Potion("pot4","Potion", 1000);
+		Potion potions[] = {pot1,pot2,pot3,pot4};
+		return Stream.of(Arguments.of(p1,potions,new int[] {100,100,100,100}), Arguments.of(p2,potions,new int[] {50,70,70,100}));
+	}
+	
+	@ParameterizedTest
+	@MethodSource("healParams")
+	void testPotionUse(Player player, Potion[] potions, int[] expectedHealth ) {
+		for (int i = 0; i < potions.length; i++) {
+			potions[i].use(player);
+			assertEquals(player.getHealth(), expectedHealth[i]);
+		}
+		
+	}
 
 }
