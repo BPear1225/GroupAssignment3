@@ -128,29 +128,52 @@ class InvintoryTesting {
 			assertEquals(inventory.findItem(toFind).orElse(null), null);
 		}
 	}
-	
+
 	@Nested
 	class getItemsTests {
-		
+
 		@Test
 		void getEmpty() {
 			List<Item> expectedItems = new ArrayList<>();
-			
+
 			assertEquals(cap0.getItems(), expectedItems);
 		}
-		
+
 		@Test
 		void getFilled() {
 			cap5.addItem(i1);
 			cap5.addItem(i1);
 			cap5.addItem(i2);
-			
+
 			List<Item> expectedItems = new ArrayList<>();
 			expectedItems.add(i1);
 			expectedItems.add(i1);
 			expectedItems.add(i2);
-			
+
 			assertEquals(cap5.getItems(), expectedItems);
+		}
+	}
+
+	@Nested
+	class containsTests {
+
+		@Test
+		void containsOnEmpty() {
+
+			assertEquals(cap0.contains("Nothing"), false);
+		}
+
+		@Test
+		void containsOnFilled() {
+			cap5.addItem(i1);
+			cap5.addItem(i2);
+
+
+			assertEquals(cap5.contains(i1.getName()), true);
+
+			assertEquals(cap5.contains(i2.getName()), true);
+			
+			assertEquals(cap5.contains(i3.getName()), false);
 		}
 	}
 
@@ -199,7 +222,6 @@ class InvintoryTesting {
 			assertEquals(cap5.getItems(), cap5expectedItems);
 		}
 
-		
 		@Test
 		void removeMultiple() {
 
@@ -210,7 +232,7 @@ class InvintoryTesting {
 
 			cap5.removeItem(i1.getName());
 			cap5.removeItem(i2.getName());
-			
+
 			assertEquals(cap5.getItems(), cap5expectedItems);
 		}
 	}
