@@ -71,6 +71,24 @@ class RoomTest {
         assertEquals(testItem, removedItem);
         assertTrue(room.getItems().isEmpty());
     }
+    
+    @Test
+    void testItemManagementMultipleItems() {
+    	room.addItem(new Key("Key key", "A key to get a key"));
+        room.addItem(testItem);
+        assertEquals(2, room.getItems().size());
+        
+        // Test finding the item (case-insensitive)
+        Optional<Item> foundItem = room.findItem("golden key");
+        assertTrue(foundItem.isPresent());
+        assertEquals(testItem, foundItem.get());
+        
+        // Test removing the item
+        Item removedItem = room.removeItemByName("Golden Key");
+        assertEquals(testItem, removedItem);
+    }
+    
+    
 
     @Test
     void testMonsterManagement() {
@@ -88,6 +106,25 @@ class RoomTest {
         // Actually deal damage to kill the monster
         testMonster.takeDamage(50); 
         assertFalse(room.hasLivingMonsters());
+    }
+    
+    @Test
+    void testMonsterManagementMultipleMonsters() {
+    	room.addMonster(new Monster("Troll", 100, 100, 100, new ArrayList<>()));
+    	room.addMonster(testMonster);
+        assertEquals(2, room.getMonsters().size());
+        
+        // Test finding the monster (case-insensitive)
+        Optional<Monster> foundMonster = room.findMonster("goblin");
+        assertTrue(foundMonster.isPresent());
+        assertEquals(testMonster, foundMonster.get());
+        
+        // Test living monsters check
+        assertTrue(room.hasLivingMonsters());
+        
+        // Actually deal damage to kill the monster
+        testMonster.takeDamage(50); 
+        assertTrue(room.hasLivingMonsters());
     }
 
     
