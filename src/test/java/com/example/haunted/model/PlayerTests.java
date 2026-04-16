@@ -127,7 +127,13 @@ class PlayerTests {
 		class HealthTests {
 
 			private static Stream<Arguments> damage() {
-				return Stream.of(Arguments.of(micky, 10, 90), Arguments.of(micky, -10, 90), Arguments.of(micky, 0, 90),
+				Inventory mickyInventory = new Inventory(1);
+				Inventory tianyiInventory = new Inventory(1);
+				Inventory brettInventory = new Inventory(1);
+				micky = new Player("Micky", 100, 100, -100, mickyInventory);
+				brett = new Player("Brett", -100, -100, 100, brettInventory);
+				tianyi = new Player("Tianyi", 0, 0, 0, tianyiInventory);
+				return Stream.of(Arguments.of(micky, -10, 100), Arguments.of(micky, 0, 100), Arguments.of(micky, 10, 90),
 						Arguments.of(tianyi, 10, 0), Arguments.of(brett, 10, 0));
 			}
 
@@ -139,8 +145,14 @@ class PlayerTests {
 			}
 
 			private static Stream<Arguments> heal() {
+				Inventory mickyInventory = new Inventory(1);
+				Inventory tianyiInventory = new Inventory(1);
+				Inventory brettInventory = new Inventory(1);
+				micky = new Player("Micky", 100, 100, -100, mickyInventory);
+				brett = new Player("Brett", -100, -100, 100, brettInventory);
+				tianyi = new Player("Tianyi", 0, 0, 0, tianyiInventory);
 				micky.takeDamage(30);
-				return Stream.of(Arguments.of(micky, 10, 80), Arguments.of(micky, -10, 80), Arguments.of(micky, 0, 80),
+				return Stream.of(Arguments.of(micky, -10, 70), Arguments.of(micky, 0, 70), Arguments.of(micky, 10, 80),
 						Arguments.of(tianyi, 10, 0), Arguments.of(brett, 10, -100), Arguments.of(brett, -10, -100));
 			}
 
