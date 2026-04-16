@@ -19,8 +19,7 @@ class InvintoryTesting {
 	private static Key i1;
 	private static Key i2;
 	private static Key i3;
-	private static Key i4;
-	private static Key i5;
+
 	private static Inventory negCap;
 	private static Inventory cap0;
 	private static Inventory cap1;
@@ -31,8 +30,7 @@ class InvintoryTesting {
 		i1 = new Key("Item 1", "Test Item");
 		i2 = new Key("Item 2", "Test Item");
 		i3 = new Key("Item 3", "Test Item");
-		i4 = new Key("Item 4", "Test Item");
-		i5 = new Key("Item 5", "Test Item");
+
 		negCap = new Inventory(-5);
 		cap0 = new Inventory(0);
 		cap1 = new Inventory(1);
@@ -84,8 +82,7 @@ class InvintoryTesting {
 			i1 = new Key("Item 1", "Test Item");
 			i2 = new Key("Item 2", "Test Item");
 			i3 = new Key("Item 3", "Test Item");
-			i4 = new Key("Item 4", "Test Item");
-			i5 = new Key("Item 5", "Test Item");
+
 			negCap = new Inventory(-5);
 			cap0 = new Inventory(0);
 			cap1 = new Inventory(1);
@@ -126,8 +123,7 @@ class InvintoryTesting {
 		@MethodSource("fullListAddition")
 		void fullListDoesNotAdd(Inventory inventory, String toFind) {
 			assertEquals(inventory.findItem(toFind).orElse(null), null);
-		}
-	}
+		}	}
 
 	@Nested
 	class getItemsTests {
@@ -204,7 +200,8 @@ class InvintoryTesting {
 		@ParameterizedTest
 		@MethodSource("removalCases")
 		void removeSingular(Inventory inventory, Item toRemove, List<Item> expectedItems) {
-			inventory.removeItem(toRemove.getName());
+			
+			assertEquals(inventory.removeItem(toRemove.getName()),toRemove);
 
 			assertEquals(inventory.getItems(), expectedItems);
 		}
