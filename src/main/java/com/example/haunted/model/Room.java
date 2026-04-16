@@ -17,7 +17,7 @@ public class Room {
     private final List<Monster> monsters;
     private boolean locked;
     private String requiredKeyName;
-    private Trap trap;
+    private Trap trap; 
 
     public Room(String id, String name, String description) {
         this.id = Objects.requireNonNull(id);
