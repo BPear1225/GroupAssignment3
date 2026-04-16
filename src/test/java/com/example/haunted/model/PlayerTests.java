@@ -4,8 +4,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.stream.Stream;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
@@ -74,18 +72,10 @@ class PlayerTests {
 			ResetPlayers();
 		}
 
-		@AfterAll
-		static void tearDownAfterClass() throws Exception {
-		}
-
 		@BeforeEach
 		void setUp() throws Exception {
 			ResetPlayers();
 
-		}
-
-		@AfterEach
-		void tearDown() throws Exception {
 		}
 
 		@Nested
