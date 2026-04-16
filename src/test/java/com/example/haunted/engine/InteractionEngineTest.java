@@ -137,6 +137,10 @@ class InteractionEngineTest {
         assertEquals("Equipped weapon Iron Sword.", result.getMessage());
         assertEquals(sword, player.getEquippedWeapon());
         assertEquals(25, player.getAttackPower()); // 10 Base + 15 Bonus
+        
+        InteractionResult result2 = interactionEngine.equipItem(player, "Wooden Bow");
+        assertFalse(result2.isSuccess());
+        
     }
 
     @Test
@@ -226,6 +230,21 @@ class InteractionEngineTest {
 
         assertFalse(result.isSuccess());
         assertEquals("You do not have the correct key.", result.getMessage());
+        assertTrue(northRoom.isLocked());
+    }
+    
+    @Test
+    void testUnlockRoom_NoKey() {
+    	Room northRoom = new Room("r2", "Hallway", "A dark hallway.");
+        northRoom.setLocked(true, null);
+        currentRoom.connect(Direction.NORTH, northRoom);
+
+        player.getInventory().addItem(new Key("Brass Key", "Unlocks doors."));
+
+        InteractionResult result = interactionEngine.unlockRoom(player, Direction.NORTH);
+
+        assertFalse(result.isSuccess());
+        assertEquals("The room cannot be unlocked.", result.getMessage());
         assertTrue(northRoom.isLocked());
     }
 }
