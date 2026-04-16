@@ -24,7 +24,7 @@ class MonsterTest {
     @Test
     @DisplayName("constructor initialize all fields and set health to maxHealth")
     void constructorInitialState() {
-        assertEquals("Sleep-Deprived TA", monster.getName());
+        assertEquals("sleep deprived TA", monster.getName());
         assertEquals(50, monster.getMaxHealth());
         assertEquals(50, monster.getHealth());
         assertEquals(8, monster.getAttack());
