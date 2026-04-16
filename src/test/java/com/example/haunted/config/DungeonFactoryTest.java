@@ -244,6 +244,7 @@ class DungeonFactoryTest {
 		Room labStorage = lectureHall.getExit(Direction.EAST);
 		Room serverCloset = labStorage.getExit(Direction.NORTH);
 		Room deanVault = serverCloset.getExit(Direction.EAST);
+		deanVault = examArchive.getExit(Direction.EAST);
 		Room finalChamber = deanVault.getExit(Direction.NORTH);
 
 		assertTrue(finalChamber.isLocked());
