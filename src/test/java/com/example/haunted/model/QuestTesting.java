@@ -100,6 +100,12 @@ class QuestTesting {
 		void testQuestStatus(Quest quest, QuestStatus status) {
 			assertEquals(quest.getStatus(), status);
 		}
+		
+		@Test
+		void updateStatusWithNoChange() {
+			none.updateStatus();
+			assertEquals(none.getStatus(), QuestStatus.NOT_STARTED);
+		}
 
 	}
 
