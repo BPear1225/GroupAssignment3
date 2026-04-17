@@ -123,7 +123,19 @@ class InvintoryTesting {
 		@MethodSource("fullListAddition")
 		void fullListDoesNotAdd(Inventory inventory, String toFind) {
 			assertEquals(inventory.findItem(toFind).orElse(null), null);
-		}	}
+		}
+		
+		@Test
+		void addItemMutationKill() {
+			boolean addItemResult = cap5.addItem(i1);
+			boolean itemIsThere = (cap5.getItems()).size() == 1;
+			assertTrue(itemIsThere&&addItemResult);
+			
+			addItemResult = cap0.addItem(i1);
+			 itemIsThere = (cap0.getItems()).size() == 0;
+			assertFalse(itemIsThere&&addItemResult);
+		}
+	}
 
 	@Nested
 	class getItemsTests {
@@ -164,11 +176,10 @@ class InvintoryTesting {
 			cap5.addItem(i1);
 			cap5.addItem(i2);
 
-
 			assertEquals(cap5.contains(i1.getName()), true);
 
 			assertEquals(cap5.contains(i2.getName()), true);
-			
+
 			assertEquals(cap5.contains(i3.getName()), false);
 		}
 	}
@@ -200,8 +211,8 @@ class InvintoryTesting {
 		@ParameterizedTest
 		@MethodSource("removalCases")
 		void removeSingular(Inventory inventory, Item toRemove, List<Item> expectedItems) {
-			
-			assertEquals(inventory.removeItem(toRemove.getName()),toRemove);
+
+			assertEquals(inventory.removeItem(toRemove.getName()), toRemove);
 
 			assertEquals(inventory.getItems(), expectedItems);
 		}
